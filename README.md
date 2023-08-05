@@ -2,13 +2,13 @@
 2nd phase to coding journey
 
 
--started way back in August 2022
+-Started way back in August 2022
 
 
--got delayed because of academics
+-Got delayed because of academics
 
 
--taught the very fundamentals of python
+-Taught the very fundamentals of python
 
 
 -Here is my certification from HarvardX, although it is not verified because I don't have $300 dollars in me.
