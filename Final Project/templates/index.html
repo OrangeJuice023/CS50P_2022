@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Hero Academia RPG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .health-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 10px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .health-fill {
+            background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .villain-health {
+            background: linear-gradient(90deg, #f44336 0%, #e91e63 100%);
+        }
+
+        .battle-screen,
+        .exploration-screen,
+        .boss-screen {
+            display: none;
+        }
+
+        .battle-info {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .battle-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .battle-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .battle-log {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+
+        .log-entry {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .victory {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .defeat {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ My Hero Academia RPG ⚡</h1>
+            <p>Become the greatest hero!</p>
+        </div>
+
+        <div class="content">
+            <!-- Start Screen -->
+            <div id="startScreen" class="start-screen">
+                <p>Welcome, aspiring hero! You are about to embark on an epic journey to protect the world from powerful
+                    villains. Use your Quirk, courage, and strategy to prevail!</p>
+                <input type="text" id="heroNameInput" placeholder="Enter your Hero name" maxlength="30">
+                <button onclick="startGame()">Begin Your Hero Journey</button>
+            </div>
+
+            <!-- Exploration Screen -->
+            <div id="explorationScreen" class="exploration-screen">
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Hero Name</div>
+                        <div class="stat-value" id="heroName">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Level</div>
+                        <div class="stat-value" id="heroLevel">1</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">XP</div>
+                        <div class="stat-value" id="heroXP">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Battles Won</div>
+                        <div class="stat-value" id="battlesWon">0</div>
+                    </div>
+                </div>
+
+                <div id="explorationMessage" class="message"></div>
+
+                <div style="text-align: center;">
+                    <button onclick="explore()">🗺️ Explore New Location</button>
+                    <button id="bossBattleBtn" onclick="startBossBattle()" class="hidden"
+                        style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        ⚔️ Challenge Final Boss
+                    </button>
+                </div>
+            </div>
+
+            <!-- Battle Screen -->
+            <div id="battleScreen" class="battle-screen">
+                <div class="battle-info">
+                    <h2>Battle in Progress!</h2>
+                    <p id="battleLocation"></p>
+                </div>
+
+                <div>
+                    <p><strong>Your Health</strong></p>
+                    <div class="health-bar">
+                        <div class="health-fill" id="heroHealthBar">100 HP</div>
+                    </div>
+                </div>
+
+                <div>
+                    <p><strong id="villainName">Villain</strong></p>
+                    <div class="health-bar">
+                        <div class="health-fill villain-health" id="villainHealthBar">100 HP</div>
+                    </div>
+                </div>
+
+                <div class="battle-actions">
+                    <button onclick="performAction('quirk')">⚡ Use Quirk</button>
+                    <button onclick="performAction('evade')">🎯 Evade & Counter</button>
+                    <button onclick="performAction('heal')">💊 Use Healing Item</button>
+                </div>
+
+                <div class="battle-log" id="battleLog"></div>
+            </div>
+
+            <!-- Boss Battle Screen -->
+            <div id="bossScreen" class="boss-screen">
+                <div class="battle-info">
+                    <h2 style="color: #f5576c;">⚔️ FINAL BOSS BATTLE ⚔️</h2>
+                    <p>All For One has appeared!</p>
+                </div>
+
+                <div>
+                    <p><strong>Your Health</strong></p>
+                    <div class="health-bar">
+                        <div class="health-fill" id="bossHeroHealthBar">100 HP</div>
+                    </div>
+                </div>
+
+                <div>
+                    <p><strong>All For One</strong></p>
+                    <div class="health-bar">
+                        <div class="health-fill villain-health" id="bossHealthBar">150 HP</div>
+                    </div>
+                </div>
+
+                <div class="battle-actions">
+                    <button onclick="performBossAction('ultimate')">💥 Ultimate Quirk</button>
+                    <button onclick="performBossAction('teamup')">🤝 Team-Up Attack</button>
+                    <button onclick="performBossAction('heal')">💊 Use Healing Item</button>
+                </div>
+
+                <div class="battle-log" id="bossLog"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let inBattle = false;
+        let maxHeroHealth = 100;
+        let maxVillainHealth = 100;
+        let maxBossHealth = 150;
+
+        async function startGame() {
+            const heroName = document.getElementById('heroNameInput').value.trim();
+            if (!heroName) {
+                alert('Please enter your hero name!');
+                return;
+            }
+
+            const response = await fetch('/start_game', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ hero_name: heroName })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById('heroName').textContent = heroName;
+                document.getElementById('startScreen').style.display = 'none';
+                document.getElementById('explorationScreen').style.display = 'block';
+                document.getElementById('explorationMessage').innerHTML = `<strong>${data.message}</strong>`;
+            }
+        }
+
+        async function explore() {
+            const response = await fetch('/explore', { method: 'POST' });
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById('explorationMessage').innerHTML =
+                    `<strong>${data.message}</strong><br>A dangerous villain, <strong>${data.villain}</strong>, appears!`;
+
+                document.getElementById('battleLocation').textContent = `Location: ${data.location}`;
+                document.getElementById('villainName').textContent = data.villain;
+
+                maxVillainHealth = data.villain_health;
+                maxHeroHealth = 100;
+
+                updateHealthBar('heroHealthBar', data.hero_health, maxHeroHealth);
+                updateHealthBar('villainHealthBar', data.villain_health, maxVillainHealth);
+
+                document.getElementById('battleLog').innerHTML = '';
+                document.getElementById('explorationScreen').style.display = 'none';
+                document.getElementById('battleScreen').style.display = 'block';
+                inBattle = true;
+            }
+        }
+
+        async function performAction(action) {
+            if (!inBattle) return;
+
+            const response = await fetch('/battle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: action })
+            });
+
+            const data = await response.json();
+
+            // Add battle log entries
+            data.battle_log.forEach(log => addLogEntry(log, 'battleLog'));
+
+            updateHealthBar('heroHealthBar', data.hero_health, maxHeroHealth);
+            updateHealthBar('villainHealthBar', data.villain_health, maxVillainHealth);
+
+            if (data.battle_over) {
+                inBattle = false;
+                setTimeout(() => endBattle(data), 1000);
+            }
+        }
+
+        function endBattle(data) {
+            const logDiv = document.getElementById('battleLog');
+
+            if (data.victory) {
+                addLogEntry(`🎉 Victory! You earned ${data.xp_earned} XP!`, 'battleLog', 'victory');
+                if (data.leveled_up) {
+                    addLogEntry(`⬆️ Level Up! You are now level ${data.hero_level}!`, 'battleLog', 'victory');
+                }
+                updateStats(data);
+
+                if (data.can_fight_boss) {
+                    document.getElementById('bossBattleBtn').classList.remove('hidden');
+                }
+            } else {
+                addLogEntry('💀 Defeat! Better luck next time!', 'battleLog', 'defeat');
+            }
+
+            setTimeout(() => {
+                document.getElementById('battleScreen').style.display = 'none';
+                document.getElementById('explorationScreen').style.display = 'block';
+            }, 2000);
+        }
+
+        async function startBossBattle() {
+            document.getElementById('explorationScreen').style.display = 'none';
+            document.getElementById('bossScreen').style.display = 'block';
+            document.getElementById('bossLog').innerHTML = '';
+
+            const statsResponse = await fetch('/stats');
+            const stats = await statsResponse.json();
+            maxBossHealth = 150 + stats.hero_level * 2;
+
+            updateHealthBar('bossHeroHealthBar', 100, 100);
+            updateHealthBar('bossHealthBar', maxBossHealth, maxBossHealth);
+        }
+
+        async function performBossAction(action) {
+            const response = await fetch('/final_boss', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: action })
+            });
+
+            const data = await response.json();
+
+            data.battle_log.forEach(log => addLogEntry(log, 'bossLog'));
+
+            updateHealthBar('bossHeroHealthBar', data.hero_health, 100);
+            updateHealthBar('bossHealthBar', data.boss_health, maxBossHealth);
+
+            if (data.battle_over) {
+                setTimeout(() => {
+                    if (data.victory) {
+                        addLogEntry('🏆 ' + data.message, 'bossLog', 'victory');
+                    } else {
+                        addLogEntry('💀 ' + data.message, 'bossLog', 'defeat');
+                    }
+
+                    setTimeout(() => {
+                        document.getElementById('bossScreen').style.display = 'none';
+                        document.getElementById('explorationScreen').style.display = 'block';
+                        updateStats();
+                    }, 3000);
+                }, 1000);
+            }
+        }
+
+        function updateHealthBar(id, health, maxHealth) {
+            const bar = document.getElementById(id);
+            const percentage = Math.max(0, (health / maxHealth) * 100);
+            bar.style.width = percentage + '%';
+            bar.textContent = Math.max(0, health) + ' HP';
+
+            if (health < maxHealth * 0.3) {
+                bar.parentElement.classList.add('shake');
+                setTimeout(() => bar.parentElement.classList.remove('shake'), 300);
+            }
+        }
+
+        function addLogEntry(text, logId, cssClass = '') {
+            const logDiv = document.getElementById(logId);
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + cssClass;
+            entry.textContent = text;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        async function updateStats(data = null) {
+            if (!data) {
+                const response = await fetch('/stats');
+                data = await response.json();
+            }
+
+            document.getElementById('heroLevel').textContent = data.hero_level || 1;
+            document.getElementById('heroXP').textContent = data.total_xp || data.hero_xp || 0;
+            document.getElementById('battlesWon').textContent = data.battles_won || 0;
+        }
+    </script>
+</body>
+
+</html>
