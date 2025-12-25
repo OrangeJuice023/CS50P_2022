@@ -1,88 +1,173 @@
-submit50 cs50/problems/2022/python/project
+# ⚡ My Hero Academia RPG - Web Edition
 
-# My Hero Academia Text RPG Game
+A fully interactive web-based RPG game inspired by the My Hero Academia anime series. Battle iconic villains, level up your hero, and face the ultimate challenge against All For One!
 
-![My Hero Academia Text RPG](https://ibb.co/jzkNsLQ)
+## 🎮 Features
 
-#### Video Demo:  <URL https://youtu.be/flrSGAA0AYs>
-#### Description:
+- **Interactive Web Interface** - Beautiful, anime-inspired design with smooth animations
+- **Real-time Battle System** - Engage in strategic turn-based combat with visual feedback
+- **Progressive Leveling** - Earn XP, level up, and unlock the final boss battle
+- **Multiple Villains** - Face off against Tomura Shigaraki, Dabi, Himiko Toga, and more
+- **Strategic Combat** - Choose between Quirk attacks, evasion tactics, and healing items
+- **Boss Battle** - Challenge All For One when you reach level 10
+- **Stats Tracking** - Monitor your hero's progress with level, XP, and battles won
+- **Exploration System** - Visit iconic locations from the My Hero Academia universe
 
-## Introduction
+## 🚀 Installation
 
-**Narrator:** Welcome to the My Hero Academia Text RPG! You are about to embark on an epic journey in the exciting world of My Hero Academia.
+### Prerequisites
+- Python 3.7 or higher
+- pip (Python package installer)
 
-**Player:** Awesome! I'm ready to become a hero!
+### Setup
 
-**Narrator:** You will assume the role of a young hero with a unique Quirk, set to protect the world from powerful villains. Your heroic journey awaits!
+1. **Clone or download this repository**
 
-## Game Overview
+2. **Install required dependencies:**
+```bash
+pip install -r requirements.txt
+```
 
-**Narrator:** The game takes place in the universe of My Hero Academia. As a young hero in training, your mission is to defeat dangerous villains, explore various locations, and ultimately face the formidable "All For One" in an epic final battle.
+3. **Run the application:**
+```bash
+python app.py
+```
 
-**Player:** Sounds exciting! Let's do this!
+4. **Open your browser and navigate to:**
+```
+http://127.0.0.1:5000
+```
 
-## Features
+## 📁 Project Structure
 
-**Narrator:** Here are some key features of the game:
+```
+my-hero-academia-rpg/
+├── app.py                 # Flask application and game logic
+├── requirements.txt       # Python dependencies
+├── templates/
+│   └── index.html        # Web interface with CSS and JavaScript
+├── test_project.py       # Unit tests (optional)
+└── README.md             # This file
+```
 
-- **Choose Your Hero Name**
-  - **Player:** I want to be called "Crimson Blaze"!
+## 🎯 How to Play
 
-- **Dynamic Battles**
-  - **Narrator:** Engage in thrilling battles with villains using your Quirk, evasive maneuvers, and healing items.
+### Starting Your Journey
+1. Enter your hero name on the start screen
+2. Click "Begin Your Hero Journey" to start
 
-- **Leveling System**
-  - **Narrator:** Earn experience points (XP) from battles and level up your hero to become more powerful.
+### Exploration
+- Click "Explore New Location" to discover new areas
+- Each exploration leads to a villain encounter
 
-- **Epic Final Boss Battle**
-  - **Narrator:** Prove your heroism in an ultimate showdown against the fearsome "All For One."
+### Battle System
+Choose from three actions during combat:
+- **⚡ Use Quirk** - High damage attack based on your level
+- **🎯 Evade & Counter** - 20% chance to dodge and counter-attack
+- **💊 Use Healing Item** - Restore 15-25 HP
 
-- **Explore My Hero Academia Universe**
-  - **Narrator:** Visit iconic locations like U.A. High School, Kamino Ward, and more.
+### Leveling Up
+- Defeat villains to earn XP (20-40 per victory)
+- Level up every 100 XP
+- Higher levels increase your attack damage
 
-- **Critical Evasion**
-  - **Narrator:** Experience critical evasions, where you dodge attacks and counter-attack.
+### Final Boss Battle
+- Unlock at level 10
+- Face All For One with enhanced abilities:
+  - **💥 Ultimate Quirk** - Powerful attack (20-30 + level damage)
+  - **🤝 Team-Up Attack** - Coordinated strike with allies
+  - **💊 Use Healing Item** - Restore 20-30 HP
 
-- **Team-Up Attacks**
-  - **Narrator:** Unleash powerful team-up attacks with your allies during the final boss battle.
+## 🎨 Game Mechanics
 
-- **Healing Items**
-  - **Narrator:** Use healing items strategically to restore your hero's health during battles.
+### Combat System
+- **Hero Health:** Starts at 100 HP each battle
+- **Villain Health:** Random between 50-100 HP
+- **Damage Scaling:** Increases with hero level
+- **Critical Evasion:** 20% chance on evasion attempts
+- **Boss Health:** 150 + (Hero Level × 2)
 
-**Player:** Wow, there's so much to explore!
+### Locations
+Explore iconic My Hero Academia locations:
+- U.A. High School
+- Kamino Ward
+- Hosu City
+- Musutafu City
+- Kiyashi Ward
 
-## How to Play
+### Villains
+Battle against:
+- Tomura Shigaraki
+- Kurogiri
+- Dabi
+- Himiko Toga
+- Stain
+- All For One (Final Boss)
 
-**Narrator:** Here's how you can start your heroic journey:
+## 🧪 Testing
 
-1. Clone the repository to your local machine.
+Run the included unit tests (if using the original test file):
+```bash
+pytest test_project.py
+```
 
-2. Install the required dependencies from the `requirements.txt` file by running `pip install -r requirements.txt`.
+Tests cover:
+- Villain selection
+- Battle mechanics
+- Level calculation
+- Boss battle functionality
 
-3. Run the game by executing the `project.py` file: `python project.py`.
+## 🛠️ Technologies Used
 
-4. Follow the game instructions to enter your hero name and start your heroic journey.
+- **Backend:** Flask (Python web framework)
+- **Frontend:** HTML5, CSS3, JavaScript (ES6)
+- **Session Management:** Flask sessions for game state
+- **Styling:** Custom CSS with gradients and animations
 
-5. Explore various locations and encounter dangerous villains.
+## 📋 Requirements
 
-6. Engage in battles using different actions like using your Quirk, evading attacks, or healing yourself.
+```
+Flask==3.0.0
+pytest==7.4.3
+requests==2.31.0
+```
 
-7. Level up your hero by earning XP from victorious battles.
+## 🎓 Learning Outcomes
 
-8. Prepare for the ultimate challenge by facing the mighty "All For One."
+This project demonstrates:
+- Flask web application development
+- RESTful API design with JSON responses
+- Session management for game state
+- Frontend-backend integration
+- Responsive web design
+- Event-driven JavaScript programming
 
-9. Make wise choices, strategize your attacks, and save the world from darkness!
+## 🔮 Future Enhancements
 
-**Player:** Got it! I'm ready to become a hero!
+Potential features to add:
+- [ ] Sound effects and background music
+- [ ] More villains and heroes
+- [ ] Special Quirk abilities system
+- [ ] Multiplayer functionality
+- [ ] Save/Load game feature
+- [ ] Character customization
+- [ ] Achievement system
+- [ ] Leaderboards
 
-## Technologies Used
+## 📝 License
 
-**Narrator:** The game is implemented in Python, making use of its simplicity and versatility for text-based interactions. The random module introduces randomness to battles and actions.
+This project is created for educational purposes. My Hero Academia and all related characters are property of Kōhei Horikoshi and their respective copyright holders.
 
-**Player:** That's cool!
+## 👨‍💻 Author
 
-## Dependencies
+Created as a final project demonstrating web development skills with Python and Flask.
 
-**Narrator:** The game requires the following dependencies, which can be installed using `pip`:
+## 🙏 Acknowledgments
 
-- `pytest`
+- Inspired by the My Hero Academia anime and manga series
+- Built with Flask framework
+- Designed with modern web standards
+
+---
+
+**Ready to become the greatest hero? Start your journey now! Plus Ultra! 💪⚡**
